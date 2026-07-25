@@ -63,7 +63,6 @@ export default function Navbar({ auth, setauth }) {
       .finally(() => setLoading(false))
   }, [setauth])
 
-  // Close search dropdown on outside click
   useEffect(() => {
     function handleClickOutside(event) {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -77,7 +76,6 @@ export default function Navbar({ auth, setauth }) {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  // Debounced search
   useEffect(() => {
     if (searchQuery.trim().length > 0) {
       setSearching(true)
