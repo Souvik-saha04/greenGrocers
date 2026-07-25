@@ -105,7 +105,6 @@ export default function Navbar({ auth, setauth }) {
     setShowAddrDropdown(false)
   }
 
-  if (loading) return <span className="loader"></span>
 
   const handleLogout = async () => {
     try {
