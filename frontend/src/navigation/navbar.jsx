@@ -27,7 +27,7 @@ const SAVED_ADDRESSES = [
 ]
 
 export default function Navbar({ auth, setauth }) {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
