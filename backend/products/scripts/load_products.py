@@ -16,7 +16,7 @@ cloudinary.config(
 )
 
 def run():
-    with open("../products.json", "r", encoding="utf-8") as file:
+    with open("../products_with_images.json", "r", encoding="utf-8") as file:
         data = json.load(file)
 
     products = []
@@ -41,14 +41,14 @@ def run():
 
             print("📤 Uploading:", image_path)
 
-            # ✅ Upload to Cloudinary
+            # ✅ Upload to Cloudinary (URL-based)
             upload_result = cloudinary.uploader.upload(
                 image_path,
                 public_id=f"products/{safe_name}",
                 overwrite=True
             )
 
-            public_id = upload_result['public_id']
+            image_url = upload_result['secure_url']
 
             # ✅ Create Product object
             product = Product(
@@ -59,18 +59,19 @@ def run():
                 variant=item['variant'],
 
                 price_per_unit=Decimal(item['price_per_unit']),
-                original_price=Decimal(item['originalPrice']),
+                original_price=Decimal(item['original_price']),
                 min_price=Decimal(item['price_per_unit']),
                 current_price=Decimal(item['price_per_unit']),
 
-                stock_quantity=int(item['stockQuantity']),
+                stock_quantity=int(item['stock_quantity']),
 
-                harvest_date=datetime.strptime(item['harvestDate'], "%Y-%m-%d").date(),
+                harvest_date=datetime.strptime(item['harvest_date'], "%Y-%m-%d").date(),
                 expiry=datetime.strptime(item['expiry'], "%Y-%m-%d").date() if item.get('expiry') else None,
 
                 description=item.get('description', ""),
 
-                image=public_id
+                # 🔥 IMPORTANT CHANGE
+                image=image_url
             )
 
             products.append(product)
