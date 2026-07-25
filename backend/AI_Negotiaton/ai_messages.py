@@ -4,7 +4,7 @@ import google.generativeai as genai
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))  
 
-model = genai.GenerativeModel("models/gemini-flash-latest")
+model = genai.GenerativeModel("models/gemini-3.1-flash-lite")
 
 def generate_message(decision, price,user_price):
     if decision == "COUNTER":
